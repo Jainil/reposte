@@ -11,7 +11,7 @@ exports.register = function(formId, initialValues) {
     formId,
     initialValues,
   })
-}
+};
 
 /**
  * Registers a form to be tracked in the form store
@@ -31,4 +31,4 @@ exports.unregister = function(formId) {
   Flux.dispatch(actionTypes.UNREGISTER_FORM, {
     formId,
   })
-}
+};

@@ -9,18 +9,53 @@ var RouteHandler = Router.RouteHandler;
 var Posts = require('./Posts');
 var Users = require('./Users');
 var Submit = require('./Submit');
+var Login = require('./Login');
+var About = require('./About');
+
+var flux = require('../flux');
+var sessionModule = require('../modules/session');
 
 var App = React.createClass({
-  render: function () {
+  mixins: [flux.ReactMixin],
+
+  getDataBindings() {
+    return {
+      user : sessionModule.getters.currentUser
+    }
+  },
+
+  componentWillMount() {
+    sessionModule.actions.fetchLoggedInUser();
+  },
+
+  handleLogout() {
+    sessionModule.actions.logout();
+  },
+
+  render() {
+    let login;
+    if (this.state.user) {
+      login = <a onClick={this.handleLogout} className="navbar-link">{this.state.user.username}</a>
+    } else {
+      login = <Link to="login" className="navbar-link">Login</Link>;
+    }
+
     return (
-      <div className="app-container">
-        <header>
-          <a className="logo" href="/"></a>
-          <Link to="posts" className="header-item">Posts</Link>
-          <Link to="users" className="header-item">Users</Link>
-          <Link to="submit" className="header-item">Submit</Link>
-        </header>
-        <RouteHandler/>
+      <div>
+        <nav className="navbar">
+          <div className="container">
+            <ul className="navbar-list">
+              <li className="navbar-item"><Link to="about" className="navbar-link">Reposte</Link></li>
+              <li className="navbar-item"><Link to="posts" className="navbar-link">Posts</Link></li>
+              <li className="navbar-item"><Link to="users" className="navbar-link">Users</Link></li>
+              <li className="navbar-item"><Link to="submit" className="navbar-link">Submit</Link></li>
+              <li className="navbar-item u-pull-right">{login}</li>
+            </ul>
+          </div>
+        </nav>
+        <div className="container main-view">
+          <RouteHandler user={this.state.user}/>
+        </div>
       </div>
     );
   }
@@ -31,12 +66,14 @@ var routes = (
     <Route name="posts" handler={Posts}/>
     <Route name="submit" handler={Submit}/>
     <Route name="users" handler={Users}/>
-    <DefaultRoute handler={Posts}/>
+    <Route name="login" handler={Login}/>
+    <Route name="about" handler={About}/>
+    <DefaultRoute handler={About}/>
   </Route>
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.body);
+  React.render(<Handler />, document.body);
 });
 
 module.exports = App;

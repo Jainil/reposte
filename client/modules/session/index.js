@@ -1,7 +1,7 @@
 var Flux = require('../../flux')
 
 Flux.registerStores({
-  form: require('./stores/form-store'),
+  session: require('./stores/session-store'),
 });
 
 module.exports = {

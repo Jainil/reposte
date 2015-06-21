@@ -6,15 +6,15 @@ exports.formExists = function(formId) {
     ['form', formId],
     formEntry => !!formEntry
   ]
-}
+};
 
 exports.initialValues = function(formId) {
   return ['form', formId, 'initialValues']
-}
+};
 
 exports.currentValues = function(formId) {
   return ['form', formId, 'currentValues']
-}
+};
 
 exports.isDirty = function(formId) {
   return [
@@ -22,7 +22,7 @@ exports.isDirty = function(formId) {
     exports.currentValues(formId),
     (initial, current) => !Immutable.is(initial, current)
   ]
-}
+};
 
 exports.dirtyFields = function(formId) {
   return [
@@ -37,5 +37,5 @@ exports.dirtyFields = function(formId) {
         .map((val, key) => val !== current.get(key))
     }
   ]
-}
+};
 

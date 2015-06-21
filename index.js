@@ -1,25 +1,27 @@
 "use strict";
 
-var server = require('koa')(),
+var app = require('koa')(),
   serve = require('koa-static'),
   bodyParser = require('koa-bodyparser'),
-  fs = require('co-fs'),
-  views = require('co-views'),
   router = require('koa-router')(),
+  session = require('koa-session'),
   postRoutes = require('./apis/post'),
   commentRoutes = require('./apis/comment'),
+  authRoutes = require('./apis/auth'),
   userRoutes = require('./apis/user');
 
-let render = views(__dirname + '/views/', {'default': 'ejs'});
+app.use(bodyParser());
 
-server.use(bodyParser());
+app.keys = ['some secret hurr'];
+app.use(session(app));
 
-server.use(serve('static'));
+app.use(serve('static'));
 
-server
+app
   .use(userRoutes.routes())
   .use(postRoutes.routes())
   .use(commentRoutes.routes())
+  .use(authRoutes.routes())
   .use(router.routes())
   .use(router.allowedMethods());
 
@@ -28,4 +30,4 @@ router.get('/', function *() {
   this.status = 200;
 });
 
-server.listen(30000);
+app.listen(30000);

@@ -1,6 +1,6 @@
-var Nuclear = require('nuclear-js')
-var toImmutable = Nuclear.toImmutable
-var actionTypes = require('../action-types')
+var Nuclear = require('nuclear-js');
+var toImmutable = Nuclear.toImmutable;
+var actionTypes = require('../action-types');
 
 
 module.exports = new Nuclear.Store({
@@ -9,11 +9,11 @@ module.exports = new Nuclear.Store({
   },
 
   initialize: function() {
-    this.on(actionTypes.REGISTER_FORM, registerForm)
-    this.on(actionTypes.SET_FORM_VALUE, setFormValue)
+    this.on(actionTypes.REGISTER_FORM, registerForm);
+    this.on(actionTypes.SET_FORM_VALUE, setFormValue);
     this.on(actionTypes.UNREGISTER_FORM, unregisterForm)
   },
-})
+});
 
 /**
  * @param {Immutable.Map} state
@@ -26,7 +26,7 @@ function registerForm(state, { formId, initialValues }) {
   var formEntry = toImmutable({
     initialValues: initialValues,
     currentValues: initialValues
-  })
+  });
   return state.set(formId, formEntry)
 }
 
@@ -39,7 +39,7 @@ function registerForm(state, { formId, initialValues }) {
  * @return {Immutable.Map}
  */
 function setFormValue(state, { formId, fieldName, value }) {
-  var formEntry = state.get(formId)
+  var formEntry = state.get(formId);
 
   if (!formEntry) {
     throw new Error("FormStore: cannot find form by formId=" + formId)

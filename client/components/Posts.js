@@ -5,7 +5,6 @@ var React = require('react/addons'),
 var Posts = React.createClass({
   mixins: [flux.ReactMixin],
 
-
   getDataBindings() {
     return {
       posts: PostModule.getters.postList,
@@ -16,20 +15,13 @@ var Posts = React.createClass({
     PostModule.actions.fetchAll();
   },
 
-  _clickPostPost: function () {
-    PostModule.actions.save({
-      title: 'this is a good time ' + Math.random()
-    })
-  },
-
   render: function () {
     const posts = this.state.posts.map(post => {
-      return (<ul>{post.get('title')}</ul>);
+      return (<li>{post.get('title')}</li>);
     });
     return (
       <div>
         <ul>{posts}</ul>
-        <button onClick={this._clickPostPost}>Send mock POST post :P</button>
       </div>
     );
   }
