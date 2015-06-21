@@ -26,3 +26,10 @@ exports.logout = function () {
     }
   )
 };
+
+exports.register = function (user) {
+  q.post('/users', user)
+    .then(function (user) {
+      exports.login(user);
+    })
+};

@@ -24,19 +24,19 @@ var Submit = React.createClass({
         <div className="row">
           <div className="twelve columns">
             <label for="titleInput">Title</label>
-            <input className="u-full-width" type="text" id="titleInput"/>
+            <input className="u-full-width" type="text" id="titleInput" ref="titleInput"/>
           </div>
         </div>
         <div className="row">
           <div className="twelve columns">
             <label for="urlInput">Url</label>
-            <input className="u-full-width" type="text" id="urlInput"/>
+            <input className="u-full-width" type="text" id="urlInput" ref="urlInput"/>
           </div>
         </div>
         <div className="row">
           <div className="twelve columns">
             <label for="textInput">Text</label>
-            <textarea className="u-full-width" id="textInput"/>
+            <textarea className="u-full-width" id="textInput" ref="textInput"/>
           </div>
         </div>
         <div className="row">

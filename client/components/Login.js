@@ -5,23 +5,33 @@ var React = require('react/addons'),
 var Submit = React.createClass({
   mixins: [Flux.ReactMixin],
 
-  getDataBindings: function () {
-
+  getDataBindings() {
+    return {
+      loggedInUser: sessionModule.getters.currentUser
+    }
   },
 
-  _registerUser: function () {
-
+  _registerUser() {
+    sessionModule.actions.register({
+      username: this.refs['usernameInput'].getDOMNode().value,
+      password: this.refs['passwordInput'].getDOMNode().value,
+    })
   },
 
-  _loginUser: function () {
+  _loginUser() {
     sessionModule.actions.login({
       username: this.refs['usernameInput'].getDOMNode().value,
       password: this.refs['passwordInput'].getDOMNode().value,
     })
   },
 
+  _logoutUser() {
+    sessionModule.actions.logout();
+  },
+
   render: function () {
-    return (
+
+    var loginForm = (
       <div>
         <div className="row">
           <div className="six columns">
@@ -46,7 +56,19 @@ var Submit = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
+
+    var logoutButton = (
+      <div>
+        <div className="row">
+          <div className="six columns">
+            <button className="u-full-width" onClick={this._logoutUser}>Logout</button>
+          </div>
+        </div>
+      </div>
+    );
+
+    return this.state.loggedInUser ? logoutButton : loginForm;
   }
 });
 

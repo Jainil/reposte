@@ -28,17 +28,8 @@ var App = React.createClass({
     sessionModule.actions.fetchLoggedInUser();
   },
 
-  handleLogout() {
-    sessionModule.actions.logout();
-  },
-
   render() {
-    let login;
-    if (this.state.user) {
-      login = <a onClick={this.handleLogout} className="navbar-link">{this.state.user.username}</a>
-    } else {
-      login = <Link to="login" className="navbar-link">Login</Link>;
-    }
+    let login = this.state.user ? this.state.user.username : 'Login';
 
     return (
       <div>
@@ -49,7 +40,7 @@ var App = React.createClass({
               <li className="navbar-item"><Link to="posts" className="navbar-link">Posts</Link></li>
               <li className="navbar-item"><Link to="users" className="navbar-link">Users</Link></li>
               <li className="navbar-item"><Link to="submit" className="navbar-link">Submit</Link></li>
-              <li className="navbar-item u-pull-right">{login}</li>
+              <li className="navbar-item u-pull-right"><Link to="login" className="navbar-link">{login}</Link></li>
             </ul>
           </div>
         </nav>
@@ -63,7 +54,9 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
-    <Route name="posts" handler={Posts}/>
+    <Route name="posts" handler={Posts}>
+      <Route path="/post/:postId" component={Post}/>
+    </Route>
     <Route name="submit" handler={Submit}/>
     <Route name="users" handler={Users}/>
     <Route name="login" handler={Login}/>
