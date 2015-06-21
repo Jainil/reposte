@@ -1,6 +1,7 @@
 var React = require('react/addons'),
   flux = require('../flux'),
-  PostModule = require('../modules/posts/index');
+  PostModule = require('../modules/posts/index'),
+  Link = require('react-router').Link;
 
 var Posts = React.createClass({
   mixins: [flux.ReactMixin],
@@ -16,8 +17,9 @@ var Posts = React.createClass({
   },
 
   render: function () {
-    const posts = this.state.posts.map(post => {
-      return (<li>{post.get('title')}</li>);
+    const posts = this.state.posts.sortBy(post => post.get('created_at')).reverse().map(post => {
+      var author = post.get('user') ? '[' + post.get('user').get('username') + ']: ' : '';
+      return (<li><Link to={`/post/${post.get('_id')}`}>{author}{post.get('title')}</Link></li>);
     });
     return (
       <div>

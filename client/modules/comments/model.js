@@ -2,8 +2,8 @@ var _ = require('lodash');
 var q = require('qwest');
 var { toJS } = require('nuclear-js');
 
-var ENTITY = 'posts';
-var URL = 'posts/';
+var ENTITY = 'comments';
+var URL = 'comments/';
 
 exports.entity = ENTITY;
 
@@ -27,12 +27,4 @@ exports.fetchAll = function(params) {
 exports.delete = function(instance) {
   instance = toJS(instance);
   return q.delete(URL + instance._id);
-};
-
-exports.addComment = function (id, comment) {
-  return q.post(URL + id + '/comments', comment)
-};
-
-exports.getComments = function (id) {
-  return q.get(URL + id + '/comments')
 };

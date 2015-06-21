@@ -7,6 +7,7 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
 var Posts = require('./Posts');
+var Post = require('./Post');
 var Users = require('./Users');
 var Submit = require('./Submit');
 var Login = require('./Login');
@@ -54,9 +55,8 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
-    <Route name="posts" handler={Posts}>
-      <Route path="/post/:postId" component={Post}/>
-    </Route>
+    <Route name="posts" handler={Posts}/>
+    <Route path="post/:postId" handler={Post}/>
     <Route name="submit" handler={Submit}/>
     <Route name="users" handler={Users}/>
     <Route name="login" handler={Login}/>

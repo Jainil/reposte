@@ -14,8 +14,6 @@ var actions = {
       this.body = {error: 'Username not found'};
       this.status = 400;
     } else if (dbUser.password !== requestUser.password) {
-      console.log(dbUser);
-      console.log(requestUser.password);
       this.body = {error: 'Incorrect password'};
       this.status = 400;
     } else {
