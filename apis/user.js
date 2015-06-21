@@ -7,8 +7,16 @@ var router = require('koa-router')({
 
 var actions = {
   add: function *() {
-    this.body = yield users.insert(this.request.body);
-    this.status = 201;
+    var user = this.request.body;
+    var inDb = yield users.findOne({username: user.username});
+
+    if (inDb) {
+      this.body = yield {error: 'username already exists'};
+      this.status = 400;
+    } else {
+      this.body = yield users.insert(this.request.body);
+      this.status = 201;
+    }
   },
 
   getAll: function *() {

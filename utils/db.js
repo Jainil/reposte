@@ -1,9 +1,11 @@
 "use strict";
 
-var monk = require('monk'),
+var config = require('./config')(),
+  monk = require('monk'),
   wrap = require('co-monk'),
-  db = monk('localhost/reposte'),
   _ = require('lodash');
+
+var db = monk(config.mongoHost + '/' + config.mongoDbName);
 
 module.exports = function (table) {
   var collection = wrap(db.get(table));

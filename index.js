@@ -1,6 +1,7 @@
 "use strict";
 
-var app = require('koa')(),
+var config = require('./utils/config')(),
+  app = require('koa')(),
   serve = require('koa-static'),
   bodyParser = require('koa-bodyparser'),
   router = require('koa-router')(),
@@ -30,4 +31,5 @@ router.get('/', function *() {
   this.status = 200;
 });
 
-app.listen(30000);
+app.listen(config.port);
+console.log('Reposte started on port: ' + config.port);

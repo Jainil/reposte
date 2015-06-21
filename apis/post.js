@@ -40,7 +40,6 @@ var actions = {
   addComment: function *() {
     var comment = this.request.body;
     comment.postId = this.params.id;
-    console.log(this.params.id);
     this.body = yield comments.insert(comment);
     this.status = 200;
   }

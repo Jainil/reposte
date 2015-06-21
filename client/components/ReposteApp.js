@@ -30,7 +30,14 @@ var App = React.createClass({
   },
 
   render() {
-    let login = this.state.user ? this.state.user.username : 'Login';
+    let login, submit;
+
+    if (this.state.user) {
+      submit = <li className="navbar-item"><Link to="submit" className="navbar-link">Submit</Link></li>;
+      login = this.state.user.username;
+    } else {
+      login = 'Login';
+    }
 
     return (
       <div>
@@ -39,8 +46,7 @@ var App = React.createClass({
             <ul className="navbar-list">
               <li className="navbar-item"><Link to="about" className="navbar-link">Reposte</Link></li>
               <li className="navbar-item"><Link to="posts" className="navbar-link">Posts</Link></li>
-              <li className="navbar-item"><Link to="users" className="navbar-link">Users</Link></li>
-              <li className="navbar-item"><Link to="submit" className="navbar-link">Submit</Link></li>
+              {submit}
               <li className="navbar-item u-pull-right"><Link to="login" className="navbar-link">{login}</Link></li>
             </ul>
           </div>

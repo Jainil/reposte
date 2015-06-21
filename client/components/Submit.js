@@ -1,11 +1,12 @@
 var React = require('react/addons'),
+  Router = require('react-router'),
   Flux = require('../flux'),
   SubmitModule = require('../modules/submit-post'),
   PostModule = require('../modules/posts'),
   SessionModule = require('../modules/session');
 
 var Submit = React.createClass({
-  mixins: [Flux.ReactMixin],
+  mixins: [Flux.ReactMixin, Router.Navigation],
 
   getDataBindings: function () {
     return {
@@ -19,7 +20,8 @@ var Submit = React.createClass({
       url: this.refs['urlInput'].getDOMNode().value,
       text: this.refs['textInput'].getDOMNode().value,
       user: this.state.user
-    })
+    });
+    this.transitionTo('posts');
   },
 
   render: function () {
